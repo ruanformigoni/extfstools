@@ -1,0 +1,17 @@
+FROM alpine:latest
+
+# Install deps
+RUN apk update && apk upgrade
+RUN apk add --no-cache git build-base py3-pip patchelf cmake linux-headers
+RUN git clone https://github.com/ruanformigoni/extfstools.git
+
+WORKDIR extfstools
+
+# Compile
+RUN mkdir -p dist
+RUN make
+
+# Create static binary
+RUN pip3 install wheel scons
+RUN pip3 install staticx
+RUN staticx build/ext2rd dist/ext2rd
