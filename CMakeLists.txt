@@ -11,6 +11,8 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
     set(FREEBSD TRUE)
 endif()
 
+add_definitions("--std=c++17 -Wall -Wextra")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
 
 # checking for if we are called in the correct way:
 #  with a -B argument.  and without a cache file in the source directory.
